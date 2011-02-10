@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<title>Plugin REST</title>
+	</properties>
+	<body>
+		<section name="Plugin REST">
+			<subsection name="Introduction">
+				<p>
+					Ce plugin fournit une impl&eacute;mentation
+					de JAX-RS, permettant de cr&eacute;er
+					des services REST.
+				</p>
+				<p>
+					Il est bas&eacute;
+					sur l'impl&eacute;mentation
+					<a href="https://jersey.java.net/">Jersey</a>
+					.
+				</p>
+
+			</subsection>
+			<subsection name="Usage">
+				<h3>
+					Ecriture de service
+                </h3>
+				<p>
+					Les services REST sont d&eacute;crits
+					avec les annotations JAX-RS.
+					Il est n&eacute;cessaire
+					de d&eacute;clarer
+					les classes annot&eacute;
+					dans le context Spring du plugin.
+					<div class="source">
+						<pre>
+							&lt;bean id="directory-rest.restService"
+							class="fr.paris.lutece.plugins.directory.modules.rest.service.DirectoryRest"&gt;
+						</pre>
+					</div>
+				</p>
+				<p>
+					Attention, les classes annot&eacute;es
+					<strong>@Provider</strong>
+					doivent &ecirc;tre
+					d&eacute;clar&eacute;es
+					avec le scope singleton.
+
+					<div class="source">
+						<pre>
+							&lt;bean id="directory-rest.recordWriter"
+							class="fr.paris.lutece.plugins.directory.modules.rest.service.writers.RecordWriter"
+							scope="singleton" &gt; </pre>
+					</div>
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>
