@@ -33,10 +33,14 @@
  */
 package fr.paris.lutece.plugins.rest.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.FilterChain;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang.StringUtils;
@@ -63,95 +67,111 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public class LuteceJerseySpringServlet extends ServletContainer
 {
 
-	private static final long serialVersionUID = 5686655395749077671L;
+    private static final long serialVersionUID = 5686655395749077671L;
+    private static final Logger LOGGER = Logger.getLogger(RestConstants.REST_LOGGER);
+    private static final String HEADER_HASH = "hash";
 
-	private static final Logger LOGGER = Logger.getLogger( RestConstants.REST_LOGGER );
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    protected ResourceConfig getDefaultResourceConfig(Map<String, Object> props, WebConfig webConfig) throws ServletException
+    {
+        return new DefaultResourceConfig();
+    }
 
-	/**
-	 * 
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected ResourceConfig getDefaultResourceConfig( Map<String, Object> props, WebConfig webConfig ) throws ServletException
-	{
-		return new DefaultResourceConfig();
-	}
+    /**
+     * 
+     * Initialize the services. Adds suffix to mediatype mapping.
+     * @param rc ResourceConfig
+     * @param wa WebApplication
+     * @see com.sun.jersey.api.container.filter.UriConnegFilter
+     */
+    @Override
+    protected void initiate(ResourceConfig rc, WebApplication wa)
+    {
+        try
+        {
+            try
+            {
+                // map default ".extension" to MediaType
+                rc.getMediaTypeMappings().put("atom", MediaType.APPLICATION_ATOM_XML_TYPE);
+                rc.getMediaTypeMappings().put("xml", MediaType.APPLICATION_XML_TYPE);
+                rc.getMediaTypeMappings().put("json", MediaType.APPLICATION_JSON_TYPE);
+                rc.getMediaTypeMappings().put("kml", RestMediaTypes.APPLICATION_KML_TYPE);
 
-	/**
-	 * 
-	 * Initialize the services. Adds suffix to mediatype mapping.
-	 * @param rc ResourceConfig
-	 * @param wa WebApplication
-	 * @see com.sun.jersey.api.container.filter.UriConnegFilter
-	 */
-	@Override
-	protected void initiate( ResourceConfig rc, WebApplication wa )
-	{
-		try
-		{
-			try
-			{
-				// map default ".extension" to MediaType
-				rc.getMediaTypeMappings().put( "atom", MediaType.APPLICATION_ATOM_XML_TYPE );
-				rc.getMediaTypeMappings().put( "xml", MediaType.APPLICATION_XML_TYPE );
-				rc.getMediaTypeMappings().put( "json", MediaType.APPLICATION_JSON_TYPE );
-				rc.getMediaTypeMappings().put( "kml", RestMediaTypes.APPLICATION_KML_TYPE );
+                // add specific-plugin-provided extensions
+                List<MediaTypeMapping> listMappings = SpringContextService.getBeansOfType(MediaTypeMapping.class);
+                if (listMappings != null)
+                {
+                    for (MediaTypeMapping mapping : listMappings)
+                    {
+                        String strExtension = mapping.getExtension();
+                        MediaType mediaType = mapping.getMediaType();
+                        if (StringUtils.isNotBlank(strExtension) && mediaType != null)
+                        {
+                            rc.getMediaTypeMappings().put(strExtension, mediaType);
+                        } else
+                        {
+                            LOGGER.error("Can't add media type mapping for extension : " + strExtension + ", mediatype : " + mediaType + ". Please check your context configuration.");
+                        }
+                    }
+                }
+            } catch (UnsupportedOperationException uoe)
+            {
+                // might be immutable map
+                LOGGER.error(uoe.getMessage() + ". Won't support extension mapping (.json, .xml, .atom)", uoe);
+            }
 
-				// add specific-plugin-provided extensions
-				List<MediaTypeMapping> listMappings = SpringContextService.getBeansOfType( MediaTypeMapping.class );
-				if ( listMappings != null )
-				{
-					for ( MediaTypeMapping mapping : listMappings )
-					{
-						String strExtension = mapping.getExtension();
-						MediaType mediaType = mapping.getMediaType();
-						if ( StringUtils.isNotBlank( strExtension ) && mediaType != null )
-						{
-							rc.getMediaTypeMappings().put( strExtension, mediaType );
-						}
-						else
-						{
-							LOGGER.error( "Can't add media type mapping for extension : " + strExtension + ", mediatype : " + mediaType + ". Please check your context configuration." );
-						}
-					}
-				}
-			}
-			catch ( UnsupportedOperationException uoe )
-			{
-				// might be immutable map
-				LOGGER.error( uoe.getMessage() + ". Won't support extension mapping (.json, .xml, .atom)", uoe );
-			}
+            wa.initiate(rc, new SpringComponentProviderFactory(rc, getContext()));
 
-			wa.initiate( rc, new SpringComponentProviderFactory( rc, getContext() ) );
+            // log services
+            if (LOGGER.isDebugEnabled())
+            {
+                LOGGER.debug("Listing registered services and providers");
 
-			// log services
-			if ( LOGGER.isDebugEnabled() )
-			{
-				LOGGER.debug( "Listing registered services and providers" );
+                for (Class<?> clazz : rc.getClasses())
+                {
+                    LOGGER.debug(clazz);
+                }
 
-				for ( Class<?> clazz : rc.getClasses() )
-				{
-					LOGGER.debug( clazz );
-				}
+                LOGGER.debug("End of listing");
+            }
 
-				LOGGER.debug( "End of listing" );
-			}
+        } catch (RuntimeException e)
+        {
+            LOGGER.log(Level.ERROR, "LuteceJerseySpringServlet : Exception occurred when intialization", e);
+            throw e;
+        }
+    }
 
-		}
-		catch ( RuntimeException e )
-		{
-			LOGGER.log( Level.ERROR, "LuteceJerseySpringServlet : Exception occurred when intialization", e );
-			throw e;
-		}
-	}
+    /**
+     * Gets the lutece spring context
+     * @return the spring context
+     */
+    private ConfigurableApplicationContext getContext()
+    {
+        return (ConfigurableApplicationContext) SpringContextService.getContext();
+    }
 
-	/**
-	 * Gets the lutece spring context
-	 * @return the spring context
-	 */
-	private ConfigurableApplicationContext getContext()
-	{
-		return ( ConfigurableApplicationContext ) SpringContextService.getContext();
-	}
+    @Override
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException
+    {
+        if (authenticateRequest(request))
+        {
+            super.doFilter(request, response, chain);
+        } else
+        {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+    }
 
+    private boolean authenticateRequest(HttpServletRequest request)
+    {
+        // TODO get a request authenticator to validate the request 
+        request.getHeader(HEADER_HASH);
+        return true;
+
+    }
 }
