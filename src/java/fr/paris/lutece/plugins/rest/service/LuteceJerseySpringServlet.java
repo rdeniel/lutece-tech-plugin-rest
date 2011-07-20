@@ -57,6 +57,8 @@ import com.sun.jersey.spi.spring.container.SpringComponentProviderFactory;
 
 import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
 import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
+import fr.paris.lutece.plugins.rest.service.security.NoSecurityAuthenticator;
+import fr.paris.lutece.plugins.rest.service.security.RequestAuthenticator;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 /**
@@ -170,8 +172,8 @@ public class LuteceJerseySpringServlet extends ServletContainer
     private boolean authenticateRequest(HttpServletRequest request)
     {
         // TODO get a request authenticator to validate the request 
-        request.getHeader(HEADER_HASH);
-        return true;
+        RequestAuthenticator ra = new NoSecurityAuthenticator();
+        return ra.authenticateRequest(request);
 
     }
 }
