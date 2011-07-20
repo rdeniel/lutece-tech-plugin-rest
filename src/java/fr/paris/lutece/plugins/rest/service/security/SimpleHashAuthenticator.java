@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.HttpMethodBase;
 
 /**
  * SimpleHashAuthenticator
@@ -87,7 +87,7 @@ public class SimpleHashAuthenticator implements RequestAuthenticator
     /**
      * {@inheritDoc }
      */
-    public void authenticateRequest( GetMethod method , List<String> elements )
+    public void authenticateRequest( HttpMethodBase method , List<String> elements )
     {
         String signature = buildSignature( elements );
         Header header = new Header( HEADER_SIGNATURE , signature );

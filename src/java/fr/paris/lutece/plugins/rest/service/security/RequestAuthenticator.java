@@ -35,7 +35,7 @@ package fr.paris.lutece.plugins.rest.service.security;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.HttpMethodBase;
 
 /**
  * Request Authenticator Interface
@@ -54,6 +54,6 @@ public interface RequestAuthenticator
      * @param method The HTTP method to authenticate
      * @param elements List of elements to include in the signature
      */
-    void authenticateRequest( GetMethod method , List<String> elements );
+    void authenticateRequest( HttpMethodBase method , List<String> elements );
     
 }
