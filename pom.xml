@@ -127,6 +127,14 @@
             <artifactId>xom</artifactId>
             <version>1.2.5</version>
         </dependency>
+        
+        <!-- signing request -->
+        <dependency>
+            <groupId>fr.paris.lutece.plugins</groupId>
+            <artifactId>library-signrequest</artifactId>
+            <version>[1.0.0-SNAPSHOT,)</version>
+            <type>lutece-plugin</type>
+        </dependency>
     </dependencies>
     <scm>
         <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/technical/plugin-rest</connection>
