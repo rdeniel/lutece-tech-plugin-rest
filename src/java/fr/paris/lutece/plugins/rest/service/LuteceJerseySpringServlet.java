@@ -57,7 +57,6 @@ import com.sun.jersey.spi.spring.container.SpringComponentProviderFactory;
 
 import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
 import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
-import fr.paris.lutece.plugins.rest.service.security.NoSecurityAuthenticator;
 import fr.paris.lutece.plugins.rest.service.security.RequestAuthenticator;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
@@ -71,7 +70,7 @@ public class LuteceJerseySpringServlet extends ServletContainer
 
     private static final long serialVersionUID = 5686655395749077671L;
     private static final Logger LOGGER = Logger.getLogger(RestConstants.REST_LOGGER);
-    private static final String HEADER_HASH = "hash";
+    private String BEAN_REQUEST_AUTHENTICATOR = "rest.requestAuthenticator";
 
     /**
      * 
@@ -160,7 +159,7 @@ public class LuteceJerseySpringServlet extends ServletContainer
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException
     {
-        if (authenticateRequest(request))
+        if (checkRequestAuthentification(request))
         {
             super.doFilter(request, response, chain);
         } else
@@ -169,11 +168,10 @@ public class LuteceJerseySpringServlet extends ServletContainer
         }
     }
 
-    private boolean authenticateRequest(HttpServletRequest request)
+    private boolean checkRequestAuthentification(HttpServletRequest request)
     {
-        // TODO get a request authenticator to validate the request 
-        RequestAuthenticator ra = new NoSecurityAuthenticator();
-        return ra.authenticateRequest(request);
+        RequestAuthenticator ra = ( RequestAuthenticator ) SpringContextService.getBean( BEAN_REQUEST_AUTHENTICATOR );
+        return ra.isRequestAuthenticated(request);
 
     }
 }

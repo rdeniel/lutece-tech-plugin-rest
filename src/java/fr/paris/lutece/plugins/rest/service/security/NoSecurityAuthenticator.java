@@ -32,7 +32,9 @@
  * License 1.0
  */package fr.paris.lutece.plugins.rest.service.security;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.httpclient.methods.GetMethod;
 
 /**
  * No security request authenticator
@@ -43,9 +45,17 @@ public class NoSecurityAuthenticator implements RequestAuthenticator
     /**
      * {@inheritDoc }
      */
-    public boolean authenticateRequest(HttpServletRequest request)
+    public boolean isRequestAuthenticated(HttpServletRequest request)
     {
         return true;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    public void authenticateRequest( GetMethod method, List<String> elements )
+    {
+        // Do nothing;
     }
     
 }

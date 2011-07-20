@@ -33,7 +33,9 @@
  */
 package fr.paris.lutece.plugins.rest.service.security;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.httpclient.methods.GetMethod;
 
 /**
  * Request Authenticator Interface
@@ -41,10 +43,17 @@ import javax.servlet.http.HttpServletRequest;
 public interface RequestAuthenticator
 {
     /**
-     * Authenticate the request
+     * Check the Authentication of a request
      * @param request The HTTP request
      * @return true if authenticated, otherwise false
      */
-    boolean authenticateRequest(HttpServletRequest request);
+    boolean isRequestAuthenticated(HttpServletRequest request);
+    
+    /**
+     * Authenticate a request
+     * @param method The HTTP method to authenticate
+     * @param elements List of elements to include in the signature
+     */
+    void authenticateRequest( GetMethod method , List<String> elements );
     
 }
