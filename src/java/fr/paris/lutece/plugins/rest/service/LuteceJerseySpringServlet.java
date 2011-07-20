@@ -57,8 +57,8 @@ import com.sun.jersey.spi.spring.container.SpringComponentProviderFactory;
 
 import fr.paris.lutece.plugins.rest.service.mediatype.MediaTypeMapping;
 import fr.paris.lutece.plugins.rest.service.mediatype.RestMediaTypes;
-import fr.paris.lutece.plugins.rest.service.security.RequestAuthenticator;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.util.http.RequestAuthenticator;
 
 /**
  * 

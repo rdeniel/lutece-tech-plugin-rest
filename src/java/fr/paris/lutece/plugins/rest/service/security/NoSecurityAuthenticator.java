@@ -32,6 +32,7 @@
  * License 1.0
  */package fr.paris.lutece.plugins.rest.service.security;
 
+import fr.paris.lutece.util.http.RequestAuthenticator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.httpclient.HttpMethodBase;

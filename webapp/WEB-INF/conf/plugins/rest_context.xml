@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
+
+    <!-- No Authentification -->
     <bean id="rest.requestAuthenticator" class="fr.paris.lutece.plugins.rest.security.NoSecurityAuthenticator" />
+
+
+    <!-- Simple Hash Authentification -->
+<!--
+    <bean id="rest.hashService" class="fr.paris.lutece.util.security.Sha1HashService" />
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.plugins.rest.security.SimpleHashAuthenticator" >
+        <property name="hashService" ref="rest.hashService" />
+        <property name="signatureElements" > 
+            <list>
+                <value>key</value>
+            </list>
+        </property>
+    </bean>
+-->
+
 </beans>

@@ -34,7 +34,8 @@
 package fr.paris.lutece.plugins.rest.service.security;
 
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
-import fr.paris.lutece.util.security.SecurityUtil;
+import fr.paris.lutece.util.http.RequestAuthenticator;
+import fr.paris.lutece.util.security.HashService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -49,11 +50,17 @@ public class SimpleHashAuthenticator implements RequestAuthenticator
     private static final String HEADER_SIGNATURE = "Lutece REST Signature";
     private static final String PROPERTY_SIMPLE_HASH_SECRET = "rest.simpleHash.secret";
     
-    List<String> _listSignatureElements;
+    private List<String> _listSignatureElements;
+    private static HashService _serviceHash;
     
     public void setSignatureElements( List<String> list )
     {
         _listSignatureElements = list;
+    }
+    
+    public void setHashService( HashService service )
+    {
+        _serviceHash = service;
     }
     
     /**
@@ -108,7 +115,7 @@ public class SimpleHashAuthenticator implements RequestAuthenticator
         }
         
         sb.append( AppPropertiesService.getProperty( PROPERTY_SIMPLE_HASH_SECRET) );
-        return SecurityUtil.sha1( sb.toString() );
+        return _serviceHash.getHash( sb.toString() );
     }
     
 }
