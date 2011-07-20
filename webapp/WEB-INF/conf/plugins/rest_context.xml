@@ -2,14 +2,13 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-    <!-- No Authentification -->
-    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.plugins.rest.security.NoSecurityAuthenticator" />
+    <!-- No Authentication -->
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.plugins.rest.service.security.NoSecurityAuthenticator" />
 
-
-    <!-- Simple Hash Authentification -->
+    <!-- Simple Hash Authentication -->
 <!--
     <bean id="rest.hashService" class="fr.paris.lutece.util.security.Sha1HashService" />
-    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.plugins.rest.security.SimpleHashAuthenticator" >
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.plugins.rest.service.security.SimpleHashAuthenticator" >
         <property name="hashService" ref="rest.hashService" />
         <property name="signatureElements" > 
             <list>
