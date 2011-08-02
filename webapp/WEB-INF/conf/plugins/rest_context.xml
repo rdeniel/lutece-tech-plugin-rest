@@ -8,7 +8,7 @@
     <!-- Simple Hash Authentication -->
 <!--
     <bean id="rest.hashService" class="fr.paris.lutece.util.signrequest.security.Sha1HashService" />
-    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.SimpleHashAuthenticator" >
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.HeaderHashAuthenticator" >
         <property name="hashService" ref="rest.hashService" />
         <property name="signatureElements" > 
             <list>
