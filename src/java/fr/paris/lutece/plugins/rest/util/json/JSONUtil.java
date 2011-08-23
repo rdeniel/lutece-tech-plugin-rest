@@ -31,12 +31,13 @@
  *
  * License 1.0
  */
-
 package fr.paris.lutece.plugins.rest.util.json;
 
-import java.util.Map;
 import net.sf.json.JSONObject;
 import net.sf.json.xml.XMLSerializer;
+
+import java.util.Map;
+
 
 /**
  * JSON Utils
@@ -46,10 +47,9 @@ public final class JSONUtil
     private static final int INDENT = 4;
 
     /** Private constructor */
-    private JSONUtil()
+    private JSONUtil(  )
     {
     }
-
 
     /**
      * Convert a model into a JSON formatted string
@@ -59,8 +59,8 @@ public final class JSONUtil
     public static String model2Json( Map model )
     {
         JSONObject json = json( model );
-        return json.toString( INDENT );
 
+        return json.toString( INDENT );
     }
 
     /**
@@ -71,9 +71,9 @@ public final class JSONUtil
     public static String model2Xml( Map model )
     {
         JSONObject json = json( model );
-        XMLSerializer serializer = new XMLSerializer();
-        return serializer.write( json );
+        XMLSerializer serializer = new XMLSerializer(  );
 
+        return serializer.write( json );
     }
 
     /**
@@ -83,8 +83,9 @@ public final class JSONUtil
      */
     public static JSONObject json( Map model )
     {
-        JSONObject json = new JSONObject();
+        JSONObject json = new JSONObject(  );
         json.accumulateAll( model );
+
         return json;
     }
 
@@ -94,14 +95,14 @@ public final class JSONUtil
      * @param nCode The error code
      * @return The formatted string
      */
-    public static String formatError( String strMessage , int nCode )
+    public static String formatError( String strMessage, int nCode )
     {
-        JSONObject json = new JSONObject();
-        JSONObject detail = new JSONObject();
-        detail.accumulate("message", strMessage );
-        detail.accumulate("code", nCode);
-        json.accumulate( "error" , detail );
+        JSONObject json = new JSONObject(  );
+        JSONObject detail = new JSONObject(  );
+        detail.accumulate( "message", strMessage );
+        detail.accumulate( "code", nCode );
+        json.accumulate( "error", detail );
+
         return json.toString( INDENT );
     }
-
 }

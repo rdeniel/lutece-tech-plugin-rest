@@ -33,26 +33,27 @@
  */
 package fr.paris.lutece.plugins.rest.service;
 
+
 /**
  * Rest constants
  */
 public final class RestConstants
 {
-	/**
-	 * REST Logger name
-	 */
-	public static final String REST_LOGGER = "lutece.rest";
+    /**
+     * REST Logger name
+     */
+    public static final String REST_LOGGER = "lutece.rest";
 
-	/**
-	 * Base path : prefix for services url.
-	 */
-	public static final String BASE_PATH = "/rest/";
+    /**
+     * Base path : prefix for services url.
+     */
+    public static final String BASE_PATH = "/rest/";
 
-	/**
-	 * Private constructor
-	 */
-	private RestConstants()
-	{
-		// nothing
-	}
+    /**
+     * Private constructor
+     */
+    private RestConstants(  )
+    {
+        // nothing
+    }
 }

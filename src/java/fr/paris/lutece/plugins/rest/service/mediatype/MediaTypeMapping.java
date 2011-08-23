@@ -35,50 +35,49 @@ package fr.paris.lutece.plugins.rest.service.mediatype;
 
 import javax.ws.rs.core.MediaType;
 
+
 /**
- * 
+ *
  * MediaTypeMapping use to map extensions (ex: xml) to media type (application/xml). Extension should not contain the dot "." prefix.
  */
 public class MediaTypeMapping
 {
-	private MediaType _mediaType;
+    private MediaType _mediaType;
+    private String _strExtension;
 
-	private String _strExtension;
+    /**
+     * Gets the media type
+     * @return the media type
+     */
+    public MediaType getMediaType(  )
+    {
+        return _mediaType;
+    }
 
-	/**
-	 * Gets the media type
-	 * @return the media type
-	 */
-	public MediaType getMediaType()
-	{
-		return _mediaType;
-	}
+    /**
+     * Sets the media type
+     * @param mediaType the media type
+     */
+    public void setMediaType( MediaType mediaType )
+    {
+        this._mediaType = mediaType;
+    }
 
-	/**
-	 * Sets the media type
-	 * @param mediaType the media type
-	 */
-	public void setMediaType( MediaType mediaType )
-	{
-		this._mediaType = mediaType;
-	}
+    /**
+     * Gets the extension
+     * @return the extension
+     */
+    public String getExtension(  )
+    {
+        return _strExtension;
+    }
 
-	/**
-	 * Gets the extension
-	 * @return the extension
-	 */
-	public String getExtension()
-	{
-		return _strExtension;
-	}
-
-	/**
-	 * Sets the extension
-	 * @param strExtension the extension
-	 */
-	public void setExtension( String strExtension )
-	{
-		this._strExtension = strExtension;
-	}
-
+    /**
+     * Sets the extension
+     * @param strExtension the extension
+     */
+    public void setExtension( String strExtension )
+    {
+        this._strExtension = strExtension;
+    }
 }

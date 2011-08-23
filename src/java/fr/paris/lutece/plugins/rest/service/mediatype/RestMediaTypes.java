@@ -35,28 +35,29 @@ package fr.paris.lutece.plugins.rest.service.mediatype;
 
 import javax.ws.rs.core.MediaType;
 
+
 /**
- * 
+ *
  * Media Types : media types extensions.
  * @see MediaType
  */
 public final class RestMediaTypes
 {
-	/**
-	 * application/vnd.google-earth.kml+xml
-	 */
-	public static final String APPLICATION_KML = "application/vnd.google-earth.kml+xml";
+    /**
+     * application/vnd.google-earth.kml+xml
+     */
+    public static final String APPLICATION_KML = "application/vnd.google-earth.kml+xml";
 
-	/**
-	 * application/vnd.google-earth.kml+xml
-	 */
-	public static final MediaType APPLICATION_KML_TYPE = new MediaType( "application", "vnd.google-earth.kml+xml" );
+    /**
+     * application/vnd.google-earth.kml+xml
+     */
+    public static final MediaType APPLICATION_KML_TYPE = new MediaType( "application", "vnd.google-earth.kml+xml" );
 
-	/**
-	 * Empty constructor
-	 */
-	private RestMediaTypes()
-	{
-		// nothing
-	}
+    /**
+     * Empty constructor
+     */
+    private RestMediaTypes(  )
+    {
+        // nothing
+    }
 }
