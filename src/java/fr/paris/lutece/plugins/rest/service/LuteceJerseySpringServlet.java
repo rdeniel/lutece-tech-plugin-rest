@@ -74,7 +74,7 @@ public class LuteceJerseySpringServlet extends ServletContainer
 {
     private static final long serialVersionUID = 5686655395749077671L;
     private static final Logger LOGGER = Logger.getLogger( RestConstants.REST_LOGGER );
-    private String BEAN_REQUEST_AUTHENTICATOR = "rest.requestAuthenticator";
+    private static final String BEAN_REQUEST_AUTHENTICATOR = "rest.requestAuthenticator";
 
     /**
      *
@@ -166,6 +166,10 @@ public class LuteceJerseySpringServlet extends ServletContainer
         return (ConfigurableApplicationContext) SpringContextService.getContext(  );
     }
 
+    /**
+     * Checks if the request is authenticated. Sets {@link HttpServletResponse#SC_UNAUTHORIZED} if not, 
+     * calls {@link ServletContainer#doFilter(HttpServletRequest, HttpServletResponse, FilterChain)} otherwise.
+     */
     @Override
     public void doFilter( HttpServletRequest request, HttpServletResponse response, FilterChain chain )
         throws IOException, ServletException
@@ -180,6 +184,11 @@ public class LuteceJerseySpringServlet extends ServletContainer
         }
     }
 
+    /**
+     * Checks if the request is authenticated.
+     * @param request the request
+     * @return <code>true</code> if the request is authenticated, <code>false</code> otherwise.
+     */
     private boolean checkRequestAuthentification( HttpServletRequest request )
     {
         RequestAuthenticator ra = (RequestAuthenticator) SpringContextService.getBean( BEAN_REQUEST_AUTHENTICATOR );
