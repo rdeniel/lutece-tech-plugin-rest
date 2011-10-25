@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.rest.service.writers;
 
 import fr.paris.lutece.plugins.rest.service.formatters.IFormatter;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -62,6 +63,16 @@ import javax.ws.rs.ext.MessageBodyWriter;
  */
 public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
 {
+    // ERROR CODE
+    private static final String ERROR_CODE = "1";
+
+    // MESSAGES
+    private static final String MESSAGE_NO_RESOURCE = "No resource";
+
+    // PROPERTIES
+    private static final String PROPERTY_WRITER_ENCODING = "rest.writer.encoding";
+
+    // VARIABLES
     private Map<String, IFormatter<E>> _mapFormatters;
 
     /**
@@ -94,25 +105,49 @@ public abstract class AbstractWriter<E> implements MessageBodyWriter<List<E>>
             String strContent = StringUtils.EMPTY;
             IFormatter<E> formatter = _mapFormatters.get( mediaType.toString(  ) );
 
-            if ( ( formatter != null ) && ( listResources != null ) )
-            {
-                if ( listResources.size(  ) > 1 )
-                {
-                    strContent = formatter.format( listResources );
-                }
-                else
-                {
-                    strContent = formatter.format( listResources.get( 0 ) );
-                }
-            }
-
-            if ( StringUtils.isEmpty( strContent ) )
+            if ( formatter == null )
             {
                 // Should not happen
                 throw new WebApplicationException( Status.UNSUPPORTED_MEDIA_TYPE );
             }
 
-            entityStream.write( strContent.getBytes( "utf-8" ) );
+            if ( listResources != null )
+            {
+                if ( listResources.size(  ) == 1 )
+                {
+                    E resource = listResources.get( 0 );
+
+                    if ( resource != null )
+                    {
+                        strContent = formatter.format( resource );
+                    }
+                    else
+                    {
+                        strContent = formatter.formatError( ERROR_CODE, MESSAGE_NO_RESOURCE );
+                    }
+                }
+                else if ( listResources.size(  ) > 1 )
+                {
+                    strContent = formatter.format( listResources );
+                }
+                else
+                {
+                    strContent = formatter.formatError( ERROR_CODE, MESSAGE_NO_RESOURCE );
+                }
+            }
+            else
+            {
+                strContent = formatter.formatError( ERROR_CODE, MESSAGE_NO_RESOURCE );
+            }
+
+            if ( StringUtils.isBlank( strContent ) )
+            {
+                // Should not happen
+                throw new WebApplicationException( Status.UNSUPPORTED_MEDIA_TYPE );
+            }
+
+            String strEncoding = AppPropertiesService.getProperty( PROPERTY_WRITER_ENCODING );
+            entityStream.write( strContent.getBytes( strEncoding ) );
         }
         else
         {
