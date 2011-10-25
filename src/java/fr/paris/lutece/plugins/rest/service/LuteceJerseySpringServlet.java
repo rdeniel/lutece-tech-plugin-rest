@@ -167,7 +167,7 @@ public class LuteceJerseySpringServlet extends ServletContainer
     }
 
     /**
-     * Checks if the request is authenticated. Sets {@link HttpServletResponse#SC_UNAUTHORIZED} if not, 
+     * Checks if the request is authenticated. Sets {@link HttpServletResponse#SC_UNAUTHORIZED} if not,
      * calls {@link ServletContainer#doFilter(HttpServletRequest, HttpServletResponse, FilterChain)} otherwise.
      */
     @Override
