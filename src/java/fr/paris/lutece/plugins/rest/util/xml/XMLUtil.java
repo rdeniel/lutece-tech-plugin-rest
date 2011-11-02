@@ -40,12 +40,19 @@ import fr.paris.lutece.util.xml.XmlUtil;
 /**
  * Xml Response Util
  */
-public class XMLUtil
+public final class XMLUtil
 {
     private static final String TAG_ERROR = "error";
     private static final String TAG_MESSAGE = "error-message";
     private static final String TAG_CODE = "error-code";
     private static String _strHeader = AppPropertiesService.getProperty( XmlUtil.PROPERTIES_XML_HEADER );
+
+    /**
+     * Private constructor
+     */
+    private XMLUtil(  )
+    {
+    }
 
     /**
      * Format an error response

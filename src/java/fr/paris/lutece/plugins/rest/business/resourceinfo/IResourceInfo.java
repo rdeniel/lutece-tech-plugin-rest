@@ -31,56 +31,57 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.rest.service.resourceinfo;
+package fr.paris.lutece.plugins.rest.business.resourceinfo;
 
-import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 /**
  *
- * ResourceInfoManager
+ * IResourceInfo
  *
  */
-public final class ResourceInfoManager
+public interface IResourceInfo
 {
     /**
-     * Private constructor
+     * Set the key
+     * @param strKey the key
      */
-    private ResourceInfoManager(  )
-    {
-    }
+    void setKey( String strKey );
 
     /**
-     * Get the list of resource info
-     * @return the list of resource info
+     * Get the key
+     * @return the key
      */
-    public static List<IResourceInfoProvider> getProviders(  )
-    {
-        return SpringContextService.getBeansOfType( IResourceInfoProvider.class );
-    }
+    String getKey(  );
 
     /**
-     * Get the resource info
-     * @param mapParams the map parameters
-     * @return the resource info in format ( key - value )
+     * Set the value
+     * @param strValue the value
      */
-    public static List<IResourceInfo> getResourceInfo( Map<String, String> mapParams )
-    {
-        List<IResourceInfo> listResourceInfos = new ArrayList<IResourceInfo>(  );
+    void setValue( String strValue );
 
-        for ( IResourceInfoProvider provider : getProviders(  ) )
-        {
-            if ( provider.isInvoked( mapParams ) )
-            {
-                listResourceInfos.add( provider.getResourceInfo( mapParams ) );
-            }
-        }
+    /**
+     * Get the value
+     * @return the value
+     */
+    String getValue(  );
 
-        return listResourceInfos;
-    }
+    /**
+     * Set the list of children
+     * @param listChildren the list of children
+     */
+    void setListChildren( List<IResourceInfo> listChildren );
+
+    /**
+     * Get the list of children
+     * @return the list of children
+     */
+    List<IResourceInfo> getListChildren(  );
+
+    /**
+     * Check if the resource info has children
+     * @return true if it has children, false otherwise
+     */
+    boolean hasChildren(  );
 }

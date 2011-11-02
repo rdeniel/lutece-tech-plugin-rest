@@ -38,8 +38,7 @@ package fr.paris.lutece.plugins.rest.service.resourceinfo;
  *
  * AbstractResourceInfoProvider
  *
- * @param <E> the resource class
  */
-public abstract class AbstractResourceInfoProvider<E> implements IResourceInfoProvider<E>
+public abstract class AbstractResourceInfoProvider implements IResourceInfoProvider
 {
 }

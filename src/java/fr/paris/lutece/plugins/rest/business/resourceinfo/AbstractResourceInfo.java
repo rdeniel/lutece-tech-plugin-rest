@@ -31,56 +31,82 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.rest.service.resourceinfo;
+package fr.paris.lutece.plugins.rest.business.resourceinfo;
 
-import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 /**
  *
- * ResourceInfoManager
+ * AbstractResourceInfo
  *
+ * @param <E> the resource class
  */
-public final class ResourceInfoManager
+public abstract class AbstractResourceInfo<E> implements IResourceInfo
 {
+    private String _strKey;
+    private String _strValue;
+    private List<IResourceInfo> _listChildren;
+
     /**
-     * Private constructor
+     * Set the resource info
+     * @param resource the resource
      */
-    private ResourceInfoManager(  )
+    public abstract void setResourceInfo( E resource );
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setKey( String strKey )
     {
+        _strKey = strKey;
     }
 
     /**
-     * Get the list of resource info
-     * @return the list of resource info
+     * {@inheritDoc}
      */
-    public static List<IResourceInfoProvider> getProviders(  )
+    public String getKey(  )
     {
-        return SpringContextService.getBeansOfType( IResourceInfoProvider.class );
+        return _strKey;
     }
 
     /**
-     * Get the resource info
-     * @param mapParams the map parameters
-     * @return the resource info in format ( key - value )
+     * {@inheritDoc}
      */
-    public static List<IResourceInfo> getResourceInfo( Map<String, String> mapParams )
+    public void setValue( String strValue )
     {
-        List<IResourceInfo> listResourceInfos = new ArrayList<IResourceInfo>(  );
+        _strValue = strValue;
+    }
 
-        for ( IResourceInfoProvider provider : getProviders(  ) )
-        {
-            if ( provider.isInvoked( mapParams ) )
-            {
-                listResourceInfos.add( provider.getResourceInfo( mapParams ) );
-            }
-        }
+    /**
+     * {@inheritDoc}
+     */
+    public String getValue(  )
+    {
+        return _strValue;
+    }
 
-        return listResourceInfos;
+    /**
+     * {@inheritDoc}
+     */
+    public void setListChildren( List<IResourceInfo> listChildren )
+    {
+        _listChildren = listChildren;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<IResourceInfo> getListChildren(  )
+    {
+        return _listChildren;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean hasChildren(  )
+    {
+        return ( _listChildren != null ) && !_listChildren.isEmpty(  );
     }
 }

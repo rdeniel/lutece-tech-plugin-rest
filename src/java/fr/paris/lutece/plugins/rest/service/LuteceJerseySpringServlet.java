@@ -169,6 +169,11 @@ public class LuteceJerseySpringServlet extends ServletContainer
     /**
      * Checks if the request is authenticated. Sets {@link HttpServletResponse#SC_UNAUTHORIZED} if not,
      * calls {@link ServletContainer#doFilter(HttpServletRequest, HttpServletResponse, FilterChain)} otherwise.
+     * @param request the HTTP request
+     * @param response the response
+     * @param chain the filter chain
+     * @throws IOException exception if I/O error
+     * @throws ServletException exception if servlet error
      */
     @Override
     public void doFilter( HttpServletRequest request, HttpServletResponse response, FilterChain chain )

@@ -31,56 +31,34 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.rest.service.resourceinfo;
-
-import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+package fr.paris.lutece.plugins.rest.business.resourceinfo;
 
 
 /**
  *
- * ResourceInfoManager
+ * ResourceInfo
  *
  */
-public final class ResourceInfoManager
+public class ResourceInfo extends AbstractResourceInfo<ResourceInfo>
 {
     /**
-     * Private constructor
+     * Constructor
+     * @param strKey the key
+     * @param strValue the value
      */
-    private ResourceInfoManager(  )
+    public ResourceInfo( String strKey, String strValue )
     {
+        setKey( strKey );
+        setValue( strValue );
     }
 
     /**
-     * Get the list of resource info
-     * @return the list of resource info
+     * {@inheritDoc}
      */
-    public static List<IResourceInfoProvider> getProviders(  )
+    public void setResourceInfo( ResourceInfo resource )
     {
-        return SpringContextService.getBeansOfType( IResourceInfoProvider.class );
-    }
-
-    /**
-     * Get the resource info
-     * @param mapParams the map parameters
-     * @return the resource info in format ( key - value )
-     */
-    public static List<IResourceInfo> getResourceInfo( Map<String, String> mapParams )
-    {
-        List<IResourceInfo> listResourceInfos = new ArrayList<IResourceInfo>(  );
-
-        for ( IResourceInfoProvider provider : getProviders(  ) )
-        {
-            if ( provider.isInvoked( mapParams ) )
-            {
-                listResourceInfos.add( provider.getResourceInfo( mapParams ) );
-            }
-        }
-
-        return listResourceInfos;
+        setKey( resource.getKey(  ) );
+        setValue( resource.getValue(  ) );
+        setListChildren( resource.getListChildren(  ) );
     }
 }

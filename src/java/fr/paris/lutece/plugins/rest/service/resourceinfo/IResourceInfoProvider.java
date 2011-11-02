@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.rest.service.resourceinfo;
 
+import fr.paris.lutece.plugins.rest.business.resourceinfo.IResourceInfo;
+
 import java.util.Map;
 
 
@@ -40,14 +42,20 @@ import java.util.Map;
  *
  * IResourceInfoProvider
  *
- * @param <E> the resource class
  */
-public interface IResourceInfoProvider<E>
+public interface IResourceInfoProvider
 {
     /**
-     * Get the resource info
-     * @param strIdResource the id resource
-     * @return the resource info in format ( key - value )
+     * Chec if the resource info provider is invoked or not
+     * @param mapParams the map parameters
+     * @return true if it is invoked, false otherwise
      */
-    Map<String, String> getResourceInfo( String strIdResource );
+    boolean isInvoked( Map<String, String> mapParams );
+
+    /**
+     * Get the resource info
+     * @param mapParams the map parameters
+     * @return the resource info
+     */
+    IResourceInfo getResourceInfo( Map<String, String> mapParams );
 }
