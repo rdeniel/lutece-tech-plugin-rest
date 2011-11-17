@@ -152,8 +152,9 @@ public class LuteceJerseySpringServlet extends ServletContainer
         }
         catch ( RuntimeException e )
         {
+        	LOGGER.log( Level.ERROR, "REST services won't be available. Please check your configuration or enable at least on rest module." );
             LOGGER.log( Level.ERROR, "LuteceJerseySpringServlet : Exception occurred when intialization", e );
-            throw e;
+            // throw e;
         }
     }
 
