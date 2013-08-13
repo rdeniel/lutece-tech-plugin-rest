@@ -182,6 +182,10 @@ public class LuteceJerseySpringServlet extends ServletContainer
     {
         if ( checkRequestAuthentification( request ) )
         {
+            if( LOGGER.isDebugEnabled())
+            {
+                LOGGER.debug( "LuteceJerseySpringServlet processing request : " + request.getMethod() + " " + request.getContextPath() + request.getServletPath() );
+            }
             super.doFilter( request, response, chain );
         }
         else
