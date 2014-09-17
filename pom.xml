@@ -9,14 +9,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>plugin-rest</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>lutece-plugin</packaging>
     <name>Lutece rest plugin</name>
     <description>JAX-RS implementation for Lutece, providing both client and server (filter) implementations</description>
 	
 	
     <properties>
-        <jerseyVersion>1.17.1</jerseyVersion>
+        <jerseyVersion>1.18.1</jerseyVersion>
         <springVersion>3.0.5.RELEASE</springVersion> <!-- jersey brings its own spring version (2.5.6), we have to override -->
         <componentName>rest</componentName>
         <jiraProjectName>REST</jiraProjectName>
@@ -40,24 +40,18 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>maven2-repository.dev.java.net</id>
-            <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2</url>
-            <layout>default</layout>
-        </repository>
     </repositories>
 	
     <dependencies>
         <dependency>
             <groupId>fr.paris.lutece</groupId>
             <artifactId>lutece-core</artifactId>
-            <version>[3.0.2-SNAPSHOT,)</version>
+            <version>[4.4.0,)</version>
             <type>lutece-core</type>
         </dependency>
 		
 		
-	<!-- Jersey -->	
+        <!-- Jersey -->	
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
@@ -104,12 +98,12 @@
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-atom</artifactId>
             <version>${jerseyVersion}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>rome</groupId>
-					<artifactId>rome</artifactId>
-				</exclusion>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>rome</groupId>
+                    <artifactId>rome</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 		
         <!-- Spring web is needed, but default version is 2.5.6 -->
