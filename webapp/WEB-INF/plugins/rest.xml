@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><plug-in>
     <name>rest</name>
     <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <description>rest.plugin.description</description>
     <provider>rest.plugin.provider</provider>
     <provider-url>http://lutece.paris.fr</provider-url>
