@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>plugin-rest</artifactId>
-    <version>3.1.0</version>
+    <version>3.1.1-SNAPSHOT</version>
     <packaging>lutece-plugin</packaging>
     <name>Lutece rest plugin</name>
     <description>JAX-RS implementation for Lutece, providing both client and server (filter) implementations</description>
@@ -136,7 +136,7 @@
         <connection>scm:git:https://github.com/lutece-platform/lutece-tech-plugin-rest.git</connection>
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-tech-plugin-rest.git</developerConnection>
         <url>https://github.com/lutece-platform/lutece-tech-plugin-rest.git</url>
-      <tag>lutece-tech-plugin-rest-3.1.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
 </project>
