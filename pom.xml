@@ -3,7 +3,7 @@
     <parent>
         <artifactId>lutece-global-pom</artifactId>
         <groupId>fr.paris.lutece.tools</groupId>
-        <version>3.0.11</version>
+        <version>4.0.3</version>
     </parent>
 	
     <modelVersion>4.0.0</modelVersion>
@@ -15,8 +15,8 @@
     <description>JAX-RS implementation for Lutece, providing both client and server (filter) implementations</description>
 	
     <properties>
-        <jerseyVersion>1.18.1</jerseyVersion>
-        <springVersion>3.0.5.RELEASE</springVersion> <!-- jersey brings its own spring version (2.5.6), we have to override -->
+        <jerseyVersion>2.25.1</jerseyVersion>
+        <springVersion>4.3.3.RELEASE</springVersion> <!-- jersey brings its own spring version, we have to override -->
         <componentName>rest</componentName>
         <jiraProjectName>REST</jiraProjectName>
         <jiraComponentId>10430</jiraComponentId>
@@ -52,13 +52,13 @@
 		
         <!-- Jersey -->	
         <dependency>
-            <groupId>com.sun.jersey</groupId>
+            <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
             <version>${jerseyVersion}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey.contribs</groupId>
-            <artifactId>jersey-spring</artifactId>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-spring3</artifactId>
             <version>${jerseyVersion}</version>
             <exclusions>
                 <exclusion>
@@ -89,25 +89,14 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-json</artifactId>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jerseyVersion}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
+            <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
             <version>${jerseyVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-atom</artifactId>
-            <version>${jerseyVersion}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>rome</groupId>
-                    <artifactId>rome</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 		
         <!-- Spring web is needed, but default version is 2.5.6 -->
