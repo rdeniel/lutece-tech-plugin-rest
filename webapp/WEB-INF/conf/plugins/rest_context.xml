@@ -21,4 +21,87 @@
     </bean>
 -->
 
+    <!-- JWT No Encryption Authentication -->
+    <!--
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.JWTNoEncryptionAuthenticator" >
+        <constructor-arg index="0" >
+            <map>
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+            </map>
+        </constructor-arg>                  
+        <constructor-arg index="1" value = "HEADER_NAME_FOR_JWT_CAN_BE_EMPTY"/>
+        <constructor-arg index="2" value = "VALIDITY_TIME_PERIOD_IN_MILISEC"/>
+    </bean>
+    -->
+    
+    <!-- JWT With SecreyKey Encryption Authentication -->
+    <!--
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.JWTSecretKeyAuthenticator" >
+        <constructor-arg index="0" >
+            <map>
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+            </map>
+        </constructor-arg>                  
+        <constructor-arg index="1" value = "HEADER_NAME_FOR_JWT_CAN_BE_EMPTY"/>
+        <constructor-arg index="2" value="HS256" />
+        <constructor-arg index="2" value="SECRET_KEY_PLAIN_TEXT" />
+    </bean>
+    -->
+    
+    <!-- JWT With RSA PlainText Encryption Authentication -->
+    <!--
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.JWTRSAPlainTextAuthenticator" >
+        <constructor-arg index="0" >
+            <map>
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+            </map>
+        </constructor-arg>                  
+        <constructor-arg index="1" value = "HEADER_NAME_FOR_JWT_CAN_BE_EMPTY"/>
+        <constructor-arg index="2" value="HS256" />
+        <constructor-arg index="3" value="PRIVATE_KEY_PLAIN_TEXT" />
+        <constructor-arg index="4" value="PUBLIC_KEY_PLAIN_TEXT" />
+    </bean>
+    -->
+    
+    <!-- JWT With RSA TrustStore Encryption Authentication -->
+    <!--
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.JWTRSATrustStoreFileAuthenticator" >
+        <constructor-arg index="0" >
+            <map>
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+            </map>
+        </constructor-arg>                  
+        <constructor-arg index="1" value="HEADER_NAME_FOR_JWT_CAN_BE_EMPTY"/>
+        <constructor-arg index="2" value="HS256" />
+        <constructor-arg index="3" value="TRUSTORE_PATH" />
+        <constructor-arg index="4" value="TRUSTORE_PASSWORD" />
+        <constructor-arg index="5" value="ALIAS_NAME" />
+    </bean>
+    -->
+    
+    <!-- JWT With RSA KeyStore Encryption Authentication -->
+    <!--
+    <bean id="rest.requestAuthenticator" class="fr.paris.lutece.util.signrequest.JWTNoEncryptionAuthenticator" >
+        <constructor-arg index="0" >
+            <map>
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+                <entry key="PAYLOAD_KEY_TO_CHECK" value="PAYLOAD_VALUE_TO_CHECK" />
+            </map>
+        </constructor-arg>                  
+        <constructor-arg index="1" value = "HEADER_NAME_FOR_JWT_CAN_BE_EMPTY"/>
+        <constructor-arg index="2" value="HS256" />
+        <constructor-arg index="3" value="TRUSTORE_PATH" />
+        <constructor-arg index="4" value="TRUSTORE_PASSWORD" />
+        <constructor-arg index="5" value="CERTIF_PASSWORD" />
+        <constructor-arg index="6" value="ALIAS_NAME" />
+    </bean>
+    -->
+
 </beans>
